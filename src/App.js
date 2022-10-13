@@ -1,5 +1,5 @@
 import './App.css';
-import { getAuth, signInWithPopup, signOut } from "firebase/auth";
+import { getAuth, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import app from './firebase/firebase.init';
 import { GoogleAuthProvider } from "firebase/auth";
 import { useState } from 'react';
@@ -8,10 +8,12 @@ const auth = getAuth(app);
 
 function App() {
   const [user, setUser] = useState({})
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
+  // ---> google sign In
   const handleGoogleSignIn = () => {
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, googleProvider)
       .then(res => {
         const user = res.user;
         setUser(user)
@@ -32,9 +34,21 @@ function App() {
       })
   }
 
+  // ---> github sign in
+  const handleGithubSignIn = () => {
+    signInWithPopup(auth, githubProvider)
+      .then(res => {
+        const user = res.user;
+        setUser(user)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
   return (
     <div className="App">
-      <div className="google_container">
+      <section className="google_container">
         <h2>Google Auth</h2>
 
         {
@@ -50,10 +64,34 @@ function App() {
           user.email ?
             <button className='g_signOut_btn' onClick={handleSignOut}>Sign Out</button>
             :
-            <button className='g_signIn_btn' onClick={handleGoogleSignIn}>Google Sign In</button>
+            <>
+              <button className='g_signIn_btn' onClick={handleGoogleSignIn}>Google Sign In</button>
+            </>
         }
 
-      </div>
+      </section>
+
+      <section className="github_wrapper">
+        <h2>Github Auth</h2>
+
+        {
+          user.uid &&
+          <div className="info_wrapper">
+            <img src={user?.photoURL} alt="" />
+            <h2>Welcome {user?.displayName}</h2>
+            <p>Email : {user?.email}</p>
+          </div>
+        }
+
+        {
+          user.uid ?
+            <button className='git_signOut_btn' onClick={handleSignOut}>Sign Out</button>
+            :
+            <>
+              <button className='git_signIn_btn' onClick={handleGithubSignIn}>Github Sign In</button>
+            </>
+        }
+      </section>
     </div>
   );
 }

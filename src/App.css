@@ -1,9 +1,26 @@
 .App {
   text-align: center;
 }
+.google_container,.github_wrapper{
+color:#FFF;
+padding:30px 10px;
+max-width: 320px;
+margin: 20px auto;
+}
 
+.google_container{
+  background-color: coral;
+}
+.github_wrapper{
+  background-color:teal;
+}
 .g_signIn_btn,.g_signOut_btn{
   margin-top: 50px;
+}
+
+img{
+  width: 100%;
+  object-fit: cover;
 }
 
 
