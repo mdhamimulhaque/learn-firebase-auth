@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import app from '../../firebase/firebase.init';
@@ -14,6 +14,7 @@ const EmailPasswordAuth = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+        const name = form.name.value;
         setSuccess(false)
         // ---> validation
         if (!/.{8,16}/.test(password)) {
@@ -45,6 +46,7 @@ const EmailPasswordAuth = () => {
                 setSuccess(true);
                 form.reset();
                 emailVerify();
+                handleUserName(name);
             })
             .catch(err => {
                 console.error(err);
@@ -60,14 +62,29 @@ const EmailPasswordAuth = () => {
             })
     }
 
+    // ---> handle user name
+    const handleUserName = (name) => {
+        updateProfile(auth.currentUser, {
+            displayName: name
+        })
+            .then(() => {
+                console.log("display name update")
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
 
     return (
         <section className="email_pass_container">
             <div className="login_form_wrapper">
                 <h2>Registration Form</h2>
                 <form onSubmit={handleRegistrationForm}>
+                    <label>Name</label><br />
+                    <input type="text" placeholder='Your Name' name="name" /> <br /><br />
                     <label>Email</label><br />
-                    <input type="email" placeholder='Inter Your Email' name="email" /> <br /><br />
+                    <input type="email" placeholder='Input Your Email' name="email" /> <br /><br />
                     <label>Password:</label><br />
                     <input type="password" placeholder='Your Password' name="password" /> <br /><br />
                     <p className='error_msg'><small>{passwordError}</small></p>
