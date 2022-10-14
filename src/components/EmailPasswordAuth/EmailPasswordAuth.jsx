@@ -61,8 +61,8 @@ const EmailPasswordAuth = () => {
                     <label>Password:</label><br />
                     <input type="password" placeholder='Your Password' name="password" /> <br /><br />
                     <p className='error_msg'><small>{passwordError}</small></p>
-                    {success && <p className='success_msg'><small>Registration success !!</small></p>}
-                    <button type='submit'>Register</button>
+                    {success && <p className='success_msg'><small>Registration done successfully !!</small></p>}
+                    <button className='reg_btn' type='submit'>Register</button>
                 </form>
             </div>
         </section>

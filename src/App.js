@@ -1,55 +1,62 @@
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import { getAuth, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import app from './firebase/firebase.init';
-import { GoogleAuthProvider } from "firebase/auth";
-import { useState } from 'react';
-import EmailPasswordAuth from './components/EmailPasswordAuth/EmailPasswordAuth';
+import router from './utilties/routes';
+// import { getAuth, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+// import app from './firebase/firebase.init';
+// import { GoogleAuthProvider } from "firebase/auth";
+// import { useState } from 'react';
+// import EmailPasswordAuth from "./components/EmailPasswordAuth/EmailPasswordAuth";
 
-const auth = getAuth(app);
+// const auth = getAuth(app);
 
 function App() {
-  const [user, setUser] = useState({})
-  const googleProvider = new GoogleAuthProvider();
-  const githubProvider = new GithubAuthProvider();
+  // const [user, setUser] = useState({})
+  // const googleProvider = new GoogleAuthProvider();
+  // const githubProvider = new GithubAuthProvider();
 
-  // ---> google sign In
-  const handleGoogleSignIn = () => {
-    signInWithPopup(auth, googleProvider)
-      .then(res => {
-        const user = res.user;
-        setUser(user)
-      }).catch(err => {
-        console.error(err)
-      })
-  }
+  // // ---> google sign In
+  // const handleGoogleSignIn = () => {
+  //   signInWithPopup(auth, googleProvider)
+  //     .then(res => {
+  //       const user = res.user;
+  //       setUser(user)
+  //     }).catch(err => {
+  //       console.error(err)
+  //     })
+  // }
 
-  // ---> sign out
+  // // ---> sign out
+  // const handleSignOut = () => {
+  //   signOut(auth)
+  //     .then(() => {
+  //       setUser({})
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //     })
+  // }
 
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        setUser({})
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
+  // // ---> github sign in
+  // const handleGithubSignIn = () => {
+  //   signInWithPopup(auth, githubProvider)
+  //     .then(res => {
+  //       const user = res.user;
+  //       setUser(user)
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //     })
+  // }
 
-  // ---> github sign in
-  const handleGithubSignIn = () => {
-    signInWithPopup(auth, githubProvider)
-      .then(res => {
-        const user = res.user;
-        setUser(user)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
+
+  // ===========================================
+  // ---> router use
 
   return (
     <div className="App">
-      <section className="google_container">
+
+
+      {/* <section className="google_container">
         <h2>Google Auth</h2>
 
         {
@@ -92,9 +99,11 @@ function App() {
               <button className='git_signIn_btn' onClick={handleGithubSignIn}>Github Sign In</button>
             </>
         }
-      </section>
+      </section> */}
 
-      <EmailPasswordAuth />
+      {/* <EmailPasswordAuth /> */}
+
+      <RouterProvider router={router} />
     </div>
   );
 }
