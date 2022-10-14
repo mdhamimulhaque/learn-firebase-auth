@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import app from '../../firebase/firebase.init';
@@ -44,10 +44,19 @@ const EmailPasswordAuth = () => {
                 const user = res.user;
                 setSuccess(true);
                 form.reset();
+                emailVerify();
             })
             .catch(err => {
                 console.error(err);
                 setPasswordError(err.message)
+            })
+    }
+
+    // ---> email verify
+    const emailVerify = () => {
+        sendEmailVerification(auth.currentUser)
+            .then(() => {
+                alert("Please verify your email address")
             })
     }
 

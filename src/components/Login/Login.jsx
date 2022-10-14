@@ -6,13 +6,16 @@ import app from '../../firebase/firebase.init';
 const auth = getAuth(app);
 
 const Login = () => {
+
     const [success, setSuccess] = useState(false);
+
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
         setSuccess(false);
+
         signInWithEmailAndPassword(auth, email, password)
             .then((res) => {
                 const user = res.user;
@@ -23,6 +26,8 @@ const Login = () => {
                 console.error('error', err)
             })
     }
+
+
     return (
         <section className="email_pass_container">
             <div className="login_form_wrapper">
@@ -37,6 +42,7 @@ const Login = () => {
                 {
                     success && <p className='success_msg'><small>Successfully LogIn</small></p>
                 }
+                <strong>Forget password ? <Link>reset password</Link></strong>
                 <p><small>New to this website? please <Link to='/register'>Registration</Link></small></p>
             </div>
         </section>
