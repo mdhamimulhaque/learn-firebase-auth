@@ -3,6 +3,7 @@ import { getAuth, GithubAuthProvider, signInWithPopup, signOut } from "firebase/
 import app from './firebase/firebase.init';
 import { GoogleAuthProvider } from "firebase/auth";
 import { useState } from 'react';
+import EmailPasswordAuth from './components/EmailPasswordAuth/EmailPasswordAuth';
 
 const auth = getAuth(app);
 
@@ -92,6 +93,8 @@ function App() {
             </>
         }
       </section>
+
+      <EmailPasswordAuth />
     </div>
   );
 }
