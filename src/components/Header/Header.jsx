@@ -6,6 +6,8 @@ const Header = () => {
         <nav>
             <Link to="/" >Registration</Link>
             <Link to="/login" >Log In</Link>
+            <Link to="/google" >Google Login</Link>
+            <Link to="/github" >Github Login</Link>
         </nav>
     );
 };
