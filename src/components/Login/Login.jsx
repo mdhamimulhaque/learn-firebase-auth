@@ -1,4 +1,4 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import app from '../../firebase/firebase.init';
@@ -8,6 +8,7 @@ const auth = getAuth(app);
 const Login = () => {
 
     const [success, setSuccess] = useState(false);
+    const [userEmail, setUserEmail] = useState('')
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -27,6 +28,22 @@ const Login = () => {
             })
     }
 
+    // ---> handle user email
+    const handleUserEmail = (e) => {
+        const email = e.target.value;
+        setUserEmail(email);
+    }
+
+
+    // ---> handle forget password
+    const handleForgetPassword = () => {
+        sendPasswordResetEmail(auth, userEmail)
+            .then(() => {
+                alert('Password reset email send. Please check your email address  ')
+            })
+            .catch(err => console.log(err))
+    }
+
 
     return (
         <section className="email_pass_container">
@@ -34,7 +51,7 @@ const Login = () => {
                 <h2>Login Form</h2>
                 <form onSubmit={handleLoginSubmit}>
                     <label>Email</label><br />
-                    <input type="email" placeholder='Inter Your Email' name="email" /> <br /><br />
+                    <input onBlur={handleUserEmail} type="email" placeholder='Inter Your Email' name="email" /> <br /><br />
                     <label>Password:</label><br />
                     <input type="password" placeholder='Your Password' name="password" /> <br /><br />
                     <button className='login_btn' type='submit'>Log In</button>
@@ -42,7 +59,7 @@ const Login = () => {
                 {
                     success && <p className='success_msg'><small>Successfully LogIn</small></p>
                 }
-                <strong>Forget password ? <Link>reset password</Link></strong>
+                <strong onClick={handleForgetPassword}>Forget password ? <Link>reset password</Link></strong>
                 <p><small>New to this website? please <Link to='/register'>Registration</Link></small></p>
             </div>
         </section>
