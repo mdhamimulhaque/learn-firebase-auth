@@ -6,11 +6,14 @@ const auth = getAuth(app)
 
 const EmailPasswordAuth = () => {
     const [passwordError, setPasswordError] = useState('');
+    const [success, setSuccess] = useState(false);
 
     const handleRegistrationForm = (e) => {
         e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        setSuccess(false)
         // ---> validation
         if (!/.{8,16}/.test(password)) {
             setPasswordError("Please should be 8-16 characters.")
@@ -38,9 +41,12 @@ const EmailPasswordAuth = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((res) => {
                 const user = res.user;
+                setSuccess(true);
+                form.reset();
             })
             .catch(err => {
-                console.error("error :", err)
+                console.error(err);
+                setPasswordError(err.message)
             })
     }
 
@@ -55,6 +61,7 @@ const EmailPasswordAuth = () => {
                     <label>Password:</label><br />
                     <input type="password" placeholder='Your Password' name="password" /> <br /><br />
                     <p className='error_msg'><small>{passwordError}</small></p>
+                    {success && <p className='success_msg'><small>Registration success !!</small></p>}
                     <button type='submit'>Register</button>
                 </form>
             </div>

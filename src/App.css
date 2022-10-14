@@ -33,3 +33,6 @@ margin: 20px auto;
 .error_msg{
   color: red;
 }
+.success_msg{
+  color:green;
+}
