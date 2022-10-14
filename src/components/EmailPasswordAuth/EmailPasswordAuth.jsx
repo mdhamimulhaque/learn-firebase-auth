@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import app from '../../firebase/firebase.init';
 
 const auth = getAuth(app)
@@ -64,6 +65,7 @@ const EmailPasswordAuth = () => {
                     {success && <p className='success_msg'><small>Registration done successfully !!</small></p>}
                     <button className='reg_btn' type='submit'>Register</button>
                 </form>
+                <p><small>Already have an account? please <Link to='/login'>Log in</Link></small></p>
             </div>
         </section>
     );

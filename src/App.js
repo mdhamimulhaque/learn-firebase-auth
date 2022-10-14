@@ -1,6 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import router from './utilties/routes';
+import router from './utilities/utilities';
 // import { getAuth, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 // import app from './firebase/firebase.init';
 // import { GoogleAuthProvider } from "firebase/auth";
@@ -100,9 +100,6 @@ function App() {
             </>
         }
       </section> */}
-
-      {/* <EmailPasswordAuth /> */}
-
       <RouterProvider router={router} />
     </div>
   );
